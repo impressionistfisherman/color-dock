@@ -1,0 +1,11 @@
+[
+    {
+        "id": "custom_hid_0",
+        "name": "Smart Wireless Device",
+        "manufacturer": "Smart",
+        "type": "Keyboard",
+        "vendor_id": "0x5ac",
+        "product_id": "0x24f",
+        "led_count": 12
+    }
+]

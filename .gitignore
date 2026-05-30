@@ -1,0 +1,40 @@
+# Build artifacts
+build/
+dist/
+installer_output/
+__pycache__/
+*.pyc
+*.pyo
+
+# PyInstaller
+*.spec.bak
+
+# Downloaded/extracted temp files
+openrgb_tmp.zip
+openrgb_extracted/
+
+# Logs
+*.log
+err.txt
+out.txt
+
+# User data (generated at runtime)
+scenes.json
+playlists.json
+schedules.json
+profiles/
+nanoleaf_config.json
+colordock_settings.json
+colordock.log
+
+# IDE / Claude
+.claude/
+
+# Internal dev scripts
+_write_feat7.py
+_write_feat7_css.py
+test_gitlab.py
+kb_colors_test_kb.json
+
+# Desktop Commander temp
+innosetup_installer.exe
