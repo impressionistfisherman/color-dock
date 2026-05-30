@@ -1,0 +1,4418 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Outfit:wght@300;400;600;800&display=swap');
+
+/* ── Dark Mode (default) ─────────────────────────────── */
+:root,
+[data-theme="dark"] {
+    --bg-primary: #090b10;
+    --bg-secondary: rgba(17, 20, 29, 0.92);
+    --accent-glow: rgba(0, 180, 255, 0.12);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #f4f6fb;
+    --text-secondary: #9aa3b5;
+    --glass-bg: rgba(16, 19, 28, 0.82);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glow-color: #00b4ff;
+    --success-color: #00e676;
+    --warning-color: #ffb300;
+    --surface-muted: rgba(255, 255, 255, 0.035);
+    --radius-panel: 12px;
+    --radius-control: 8px;
+    --sidebar-bg: rgba(9, 11, 16, 0.97);
+    --card-bg: rgba(14, 17, 26, 0.88);
+    --input-bg: rgba(0, 0, 0, 0.28);
+    --dropdown-bg: #0f1218;
+    --dropdown-border: rgba(255, 255, 255, 0.09);
+    --dropdown-option-hover: rgba(0, 180, 255, 0.12);
+    --dropdown-option-active: rgba(0, 180, 255, 0.2);
+    --dropdown-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+    --scrollbar-thumb: rgba(255, 255, 255, 0.10);
+    --scrollbar-thumb-hover: rgba(255, 255, 255, 0.20);
+    --body-gradient: linear-gradient(180deg, rgba(13, 17, 26, 0.98), var(--bg-primary) 360px);
+}
+
+/* ── Light Mode ──────────────────────────────────────── */
+[data-theme="light"] {
+    --bg-primary: #eef1f8;
+    --bg-secondary: rgba(255, 255, 255, 0.95);
+    --accent-glow: rgba(0, 120, 255, 0.07);
+    --border-color: rgba(0, 0, 0, 0.09);
+    --text-primary: #1a1d28;
+    --text-secondary: #5a6580;
+    --glass-bg: rgba(255, 255, 255, 0.82);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glow-color: #0078ff;
+    --success-color: #00a854;
+    --warning-color: #e08c00;
+    --surface-muted: rgba(0, 0, 0, 0.035);
+    --radius-panel: 12px;
+    --radius-control: 8px;
+    --sidebar-bg: rgba(255, 255, 255, 0.97);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --input-bg: rgba(0, 0, 0, 0.04);
+    --dropdown-bg: #ffffff;
+    --dropdown-border: rgba(0, 0, 0, 0.10);
+    --dropdown-option-hover: rgba(0, 120, 255, 0.08);
+    --dropdown-option-active: rgba(0, 120, 255, 0.14);
+    --dropdown-shadow: 0 12px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+    --scrollbar-thumb: rgba(0, 0, 0, 0.12);
+    --scrollbar-thumb-hover: rgba(0, 0, 0, 0.22);
+    --body-gradient: linear-gradient(180deg, rgba(220, 228, 248, 0.6), var(--bg-primary) 360px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--body-gradient), var(--bg-primary);
+    color: var(--text-primary);
+    position: relative;
+    display: grid;
+    grid-template-columns: 224px minmax(0, 1fr);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="light"] body,
+[data-theme="light"] {
+    color-scheme: light;
+}
+[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+.app-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 1rem;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    z-index: 20;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 44px;
+}
+
+.sidebar-brand strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.1;
+}
+
+.sidebar-brand span {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.74rem;
+    margin-top: 0.15rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nav-section-label {
+    color: var(--text-secondary);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0.8rem 0 0.25rem;
+}
+
+.nav-item {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-control);
+    padding: 0.58rem 0.7rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: rgba(0, 180, 255, 0.12);
+    color: #fff;
+}
+
+.view-hidden {
+    display: none !important;
+}
+
+/* ── Theme Toggle Button ─────────────────────────────── */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    margin-top: auto;
+    background: var(--surface-muted);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-control);
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    letter-spacing: 0.02em;
+}
+.theme-toggle:hover {
+    background: rgba(0, 180, 255, 0.1);
+    color: var(--text-primary);
+    border-color: var(--glow-color);
+}
+.theme-toggle-track {
+    position: relative;
+    width: 32px;
+    height: 18px;
+    background: var(--border-color);
+    border-radius: 9px;
+    margin-left: auto;
+    transition: background 0.25s;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+}
+[data-theme="light"] .theme-toggle-track {
+    background: rgba(0,120,255,0.25);
+}
+.theme-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), background 0.25s;
+}
+[data-theme="light"] .theme-toggle-thumb {
+    transform: translateX(14px);
+    background: var(--glow-color);
+}
+.theme-toggle-icon {
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 0.4s ease;
+}
+[data-theme="light"] .theme-toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* ── Custom Select / Dropdown ────────────────────────── */
+.custom-select {
+    position: relative;
+    width: 100%;
+    user-select: none;
+    font-family: 'Outfit', sans-serif;
+}
+
+.custom-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    background: var(--input-bg);
+    border: 1px solid var(--dropdown-border);
+    border-radius: var(--radius-control);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    gap: 0.5rem;
+    min-height: 36px;
+}
+.custom-select-trigger:hover,
+.custom-select.open .custom-select-trigger {
+    border-color: var(--glow-color);
+    background: var(--dropdown-option-hover);
+    box-shadow: 0 0 0 2px rgba(0, 180, 255, 0.1);
+}
+[data-theme="light"] .custom-select-trigger:hover,
+[data-theme="light"] .custom-select.open .custom-select-trigger {
+    box-shadow: 0 0 0 2px rgba(0, 120, 255, 0.12);
+}
+
+.custom-select-label {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.custom-select-label .opt-icon {
+    margin-right: 0.3em;
+}
+
+.custom-select-arrow {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+    transition: transform 0.22s cubic-bezier(0.4,0,0.2,1), color 0.2s;
+}
+.custom-select.open .custom-select-arrow {
+    transform: rotate(180deg);
+    color: var(--glow-color);
+}
+
+.custom-select-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: var(--dropdown-bg);
+    border: 1px solid var(--dropdown-border);
+    border-radius: 10px;
+    box-shadow: var(--dropdown-shadow);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.25s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.18s ease,
+                transform 0.2s cubic-bezier(0.4,0,0.2,1);
+    transform: translateY(-6px) scaleY(0.96);
+    transform-origin: top center;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+.custom-select.open .custom-select-dropdown {
+    max-height: 280px;
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0) scaleY(1);
+    overflow-y: auto;
+}
+
+.custom-select-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.14s, color 0.14s;
+    border-left: 2px solid transparent;
+}
+.custom-select-option:hover {
+    background: var(--dropdown-option-hover);
+    color: var(--text-primary);
+}
+.custom-select-option.selected {
+    background: var(--dropdown-option-active);
+    color: var(--glow-color);
+    border-left-color: var(--glow-color);
+    font-weight: 700;
+}
+.custom-select-option .opt-icon {
+    font-size: 1em;
+    width: 1.4em;
+    text-align: center;
+    flex-shrink: 0;
+}
+.custom-select-option .opt-label {
+    flex: 1;
+}
+
+/* Scrollbar inside dropdown */
+.custom-select-dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-select-dropdown::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+
+/* hide original select when custom is present */
+.custom-select + select,
+select.cs-hidden {
+    display: none !important;
+}
+
+/* Container - default: fluid, scrollable */
+.container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0 0 1rem;
+    border-bottom: none;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.logo-section,
+.workspace-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #00b4ff, #7f00ff);
+    border-radius: var(--radius-control);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.4);
+    animation: rotateHue 8s linear infinite;
+}
+
+.logo-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+}
+
+h1 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    background: linear-gradient(to right, #fff, #b2b8d2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] h1 {
+    background: linear-gradient(to right, #0a1628, #2d4a8a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.workspace-heading p {
+    color: var(--text-secondary);
+    font-size: 0.83rem;
+    font-weight: 600;
+    margin-top: 0.2rem;
+}
+
+.status-badge-container {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.status-badge {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-control);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-indicator.hardware {
+    background-color: var(--success-color);
+    box-shadow: 0 0 10px var(--success-color);
+}
+
+.status-indicator.demo {
+    background-color: var(--warning-color);
+    box-shadow: 0 0 10px var(--warning-color);
+}
+
+.status-indicator.warning {
+    background-color: var(--warning-color);
+    box-shadow: 0 0 10px var(--warning-color);
+}
+
+.status-indicator.error {
+    background-color: #ff3b5f;
+    box-shadow: 0 0 10px #ff3b5f;
+}
+
+.btn-reconnect {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-reconnect:hover {
+    background: rgba(0, 180, 255, 0.16);
+    box-shadow: none;
+    border-color: rgba(0, 180, 255, 0.45);
+}
+
+/* Dashboard Grid - default: stacked on small screens */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    flex: 1;
+}
+
+.dashboard-grid.single-view {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+/* Control Panel (Left) - default: natural flow */
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.layout-workspace {
+    grid-column: 1 / -1;
+}
+
+.layout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.layout-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.layout-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.layout-controls {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.7fr) minmax(320px, 1fr);
+    gap: 0.75rem;
+    align-items: stretch;
+    margin-bottom: 1rem;
+    padding: 0.85rem;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    background: rgba(0, 0, 0, 0.14);
+}
+
+.layout-control-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+.layout-profile-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 0.45rem;
+    align-items: center;
+}
+
+.layout-profile-row .btn-reconnect {
+    padding-inline: 0.75rem;
+}
+
+.layout-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.layout-device-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.layout-editor-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    min-width: 0;
+}
+
+.layout-editor-label {
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    flex: 0 0 auto;
+}
+
+.layout-editor-head strong {
+    color: var(--text-primary);
+    font-size: 0.86rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+.layout-editor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.layout-editor-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.layout-editor-actions .btn-reconnect {
+    padding-inline: 0.8rem;
+}
+
+.btn-reconnect:disabled,
+.slider-input:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.btn-reconnect.active-toggle {
+    border-color: rgba(0, 180, 255, 0.65);
+    background: rgba(0, 180, 255, 0.18);
+    color: #fff;
+}
+
+.layout-canvas {
+    position: relative;
+    min-height: 560px;
+    min-width: 100%;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    background:
+        linear-gradient(var(--border-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-color) 1px, transparent 1px),
+        var(--input-bg);
+    background-size: 32px 32px;
+    overflow: auto;
+    max-width: 100%;
+}
+
+.layout-canvas-hint {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 3;
+    color: var(--text-secondary);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-control);
+    padding: 0.45rem 0.6rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    pointer-events: none;
+    max-width: calc(100% - 1.5rem);
+    z-index: 5;
+}
+
+.layout-device {
+    position: absolute;
+    max-width: calc(100% - 16px);
+    padding: 0.65rem 0.75rem;
+    border-radius: var(--radius-control);
+    border: 1px solid rgba(0, 180, 255, 0.28);
+    background: var(--card-bg);
+    box-shadow: 0 0 0 1px var(--border-color);
+    cursor: grab;
+    user-select: none;
+    transform-origin: center;
+    transition: border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+    z-index: 2;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* ── Motherboard as container ─────────────────────────── */
+.layout-mb-host {
+    overflow: visible;   /* children can be positioned outside the header strip */
+    z-index: 1;          /* behind flat devices so GPU etc. renders on top when needed */
+    cursor: grab;
+}
+.layout-mb-host.selected { z-index: 5; }
+
+.layout-kind-motherboard {
+    background:
+        linear-gradient(90deg, rgba(0, 180, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(rgba(0, 180, 255, 0.05) 1px, transparent 1px),
+        rgba(10, 18, 24, 0.96);
+    background-size: 34px 34px;
+    border-color: rgba(0, 180, 255, 0.38);
+}
+
+/* ── Child devices inside the MB card ────────────────── */
+.layout-child-device {
+    cursor: grab;
+    z-index: 3;   /* above MB background, below selected flat devices */
+    max-width: none;
+}
+.layout-child-device .layout-device-name {
+    font-size: 0.66rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.layout-child-device .layout-device-meta {
+    font-size: 0.58rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Memory sticks inside MB */
+.layout-child-device.layout-kind-memory {
+    border-color: rgba(127, 0, 255, 0.55);
+    background: rgba(22, 10, 40, 0.95);
+    justify-content: flex-start;
+    padding: 0.45rem 0.4rem;
+}
+/* Fans/coolers inside MB */
+.layout-child-device.layout-kind-fan {
+    border-radius: 50%;
+    border-color: rgba(0, 230, 118, 0.5);
+    background: radial-gradient(circle, rgba(0, 230, 118, 0.18), rgba(9, 14, 18, 0.96) 62%);
+    text-align: center;
+    justify-content: center;
+    padding: 0.3rem;
+}
+.layout-child-device.layout-kind-fan .layout-device-name,
+.layout-child-device.layout-kind-fan .layout-device-meta {
+    font-size: 0.56rem;
+}
+
+.layout-kind-memory {
+    border-color: rgba(127, 0, 255, 0.48);
+    background: rgba(20, 12, 34, 0.94);
+    justify-content: center;
+}
+
+.layout-kind-fan {
+    border-radius: 50%;
+    border-color: rgba(0, 230, 118, 0.42);
+    background: radial-gradient(circle, rgba(0, 230, 118, 0.14), rgba(9, 14, 18, 0.94) 58%);
+    text-align: center;
+    justify-content: center;
+}
+
+.layout-kind-gpu {
+    border-color: rgba(255, 0, 85, 0.4);
+    background: rgba(22, 12, 18, 0.94);
+}
+
+.layout-kind-keyboard {
+    border-radius: 6px;
+}
+
+.layout-kind-mouse {
+    border-radius: 26px 26px 34px 34px;
+}
+
+/* ── Slot zone labels on the MB card ─────────────────── */
+.layout-board-slot {
+    position: absolute;
+    border: 1px dashed rgba(255, 255, 255, 0.10);
+    border-radius: 5px;
+    color: rgba(154, 163, 181, 0.38);
+    font-size: 0.54rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    display: grid;
+    place-items: end center;
+    padding-bottom: 0.35rem;
+    pointer-events: none;
+    text-transform: uppercase;
+}
+
+/* DIMM label: top-right strip showing horizontal stick area */
+.slot-ram {
+    top: 40px;
+    right: 14px;
+    width: calc(4 * 52px + 3 * 4px + 4px);  /* 4 sticks + gaps */
+    height: 170px;
+}
+
+/* PCIe label: bottom-left strip */
+.slot-gpu {
+    left: 14px;
+    right: 14px;
+    bottom: 8px;
+    height: 26px;
+}
+
+.layout-device.selected {
+    border-color: rgba(0, 180, 255, 0.82);
+    background: rgba(13, 22, 34, 0.96);
+    box-shadow: 0 0 0 1px rgba(0, 180, 255, 0.18), 0 0 18px rgba(0, 180, 255, 0.18);
+    z-index: 4;
+}
+
+.layout-device.excluded {
+    opacity: 0.44;
+    border-style: dashed;
+    filter: saturate(0.35);
+}
+
+.layout-device.flipped .layout-device-name,
+.layout-device.flipped .layout-device-meta {
+    direction: rtl;
+}
+
+.layout-device:active {
+    cursor: grabbing;
+}
+
+.layout-device.hidden-demo {
+    display: none;
+}
+
+.layout-device-name {
+    display: block;
+    color: var(--text-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    z-index: 1;
+}
+
+.layout-device-meta {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.68rem;
+    font-weight: 700;
+    margin-top: 0.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.layout-device-color {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--glow-color);
+    box-shadow: 0 0 10px currentColor;
+}
+
+.layout-empty {
+    color: var(--text-secondary);
+    display: grid;
+    place-items: center;
+    height: 100%;
+    min-height: 320px;
+    font-size: 0.9rem;
+}
+
+.panel-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    padding: 1rem;
+    backdrop-filter: blur(12px);
+    box-shadow: none;
+    transition: border-color 0.3s ease;
+}
+
+.panel-card:hover {
+    border-color: var(--border-color);
+}
+[data-theme="light"] .panel-card {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+    letter-spacing: 0;
+}
+
+.card-title svg {
+    width: 20px;
+    height: 20px;
+    color: var(--glow-color);
+}
+
+/* Color Wheel / Color Picker Wrapper */
+.color-picker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.color-preview-ring {
+    width: 118px;
+    height: 118px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+    padding: 8px;
+    box-shadow: 0 0 18px var(--accent-glow);
+    transition: box-shadow 0.5s ease;
+}
+
+.color-preview-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--glow-color);
+    border: 3px solid var(--bg-primary);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    transition: background-color 0.1s ease;
+}
+
+/* Sliders */
+.sliders-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.slider-value {
+    color: var(--text-primary);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.slider-input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 999px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.3s ease;
+}
+
+.slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s ease;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Custom slider colors */
+#slide-red::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #000, #ff0000);
+    height: 6px;
+    border-radius: 3px;
+}
+#slide-green::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #000, #00ff00);
+    height: 6px;
+    border-radius: 3px;
+}
+#slide-blue::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #000, #0000ff);
+    height: 6px;
+    border-radius: 3px;
+}
+
+.quick-colors {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.color-swatch {
+    height: 32px;
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.color-swatch:hover {
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+.color-swatch.active {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Effects Grid */
+.effects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.effects-grid + .color-picker-container {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.effect-settings-panel {
+    display: none;
+}
+
+.effect-settings-panel.active {
+    display: flex;
+}
+
+.effect-card {
+    background: var(--surface-muted);
+    border: 1px solid var(--glass-border);
+    padding: 0.65rem 0.7rem;
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    min-height: 42px;
+}
+
+.effect-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--glow-color);
+}
+
+.effect-card.active {
+    background: rgba(0, 180, 255, 0.14);
+    border-color: var(--glow-color);
+    box-shadow: none;
+}
+
+.effect-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.effect-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.effect-card.active .effect-name {
+    color: #fff;
+}
+
+/* Devices Section (Right) */
+.devices-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.devices-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-bar {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: var(--radius-panel) !important;
+    padding: 1rem !important;
+    backdrop-filter: blur(12px) !important;
+}
+
+.category-filters {
+    gap: 0.45rem !important;
+}
+
+.devices-count-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.devices-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Load-more pagination button */
+.load-more-devices-btn {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    background: var(--glass-bg);
+    border: 1px dashed var(--glass-border);
+    border-radius: var(--radius-panel);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    width: 100%;
+}
+.load-more-devices-btn:hover {
+    background: var(--dropdown-option-hover);
+    border-color: var(--glow-color);
+    color: var(--glow-color);
+}
+
+.device-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    padding: 1rem;
+    backdrop-filter: blur(12px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    box-shadow: none;
+    transition: border-color 0.2s ease;
+    overflow: hidden;
+}
+
+.device-card:hover {
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: none;
+}
+
+/* Device Info Panel */
+.device-info-panel {
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr) minmax(420px, 1.25fr);
+    gap: 1rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-right: 0;
+    padding-bottom: 0.85rem;
+    min-width: 0;
+    overflow: hidden;
+    align-items: center;
+}
+
+@media (max-width: 1050px) {
+    .device-info-panel {
+        grid-template-columns: 1fr;
+        padding-bottom: 0.85rem;
+    }
+
+    .device-control-inputs {
+        grid-template-columns: 1fr 1fr auto;
+    }
+}
+
+@media (max-width: 720px) {
+    .device-control-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .control-row-horizontal {
+        justify-content: flex-start;
+    }
+}
+
+.device-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.device-type-badge {
+    align-self: flex-start;
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.device-type-badge.motherboard { background: rgba(0, 230, 118, 0.15); color: #00e676; }
+.device-type-badge.gpu { background: rgba(255, 0, 127, 0.15); color: #ff007f; }
+.device-type-badge.memory { background: rgba(127, 0, 255, 0.15); color: #7f00ff; }
+.device-type-badge.fan { background: rgba(0, 180, 255, 0.15); color: #00b4ff; }
+.device-type-badge.other { background: rgba(120, 144, 156, 0.15); color: #90a4ae; }
+
+.device-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+}
+
+.device-led-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Device Mode Control */
+.device-control-inputs {
+    display: grid;
+    grid-template-columns: minmax(160px, 1fr) minmax(160px, 1fr) auto;
+    gap: 0.7rem;
+    align-items: end;
+    min-width: 0;
+}
+
+.input-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.select-mode {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--dropdown-border);
+    border-radius: var(--radius-control);
+    padding: 0.55rem 0.8rem;
+    color: var(--text-primary);
+    outline: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Outfit', sans-serif;
+}
+
+.select-mode:focus, .select-mode:hover {
+    border-color: var(--glow-color);
+    box-shadow: 0 0 0 2px rgba(0, 180, 255, 0.1);
+}
+[data-theme="light"] .select-mode {
+    color-scheme: light;
+}
+
+/* Device Interactive Layout */
+.device-interactive-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    justify-content: flex-start;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.device-card .target-indicator {
+    display: none;
+}
+
+/* Zones Display */
+.zones-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.zone-pill {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.zone-pill:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.zone-pill.active {
+    background: linear-gradient(135deg, rgba(0, 180, 255, 0.15), rgba(0, 180, 255, 0.05));
+    border-color: var(--glow-color);
+    color: #fff;
+}
+
+/* LED visualizer grid */
+.led-visualizer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    border-radius: var(--radius-control);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.led-node {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.led-node:hover {
+    transform: scale(1.3);
+    z-index: 2;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Led Tooltip */
+.led-node::before {
+    content: attr(data-name);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    background: #000;
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.65rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 10;
+}
+
+.led-node:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* SDK Board Card with 44 Brands Scroll Control */
+.sdk-board-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.sdk-board-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sdk-chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-height: 125px;
+    overflow-y: auto;
+    padding-right: 8px;
+    margin-top: 0.8rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 1;
+}
+
+/* Collapsed State Styles */
+.sdk-board-card.collapsed {
+    padding-bottom: 1.2rem;
+}
+.sdk-board-card.collapsed .sdk-chips-grid {
+    max-height: 0;
+    margin-top: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+.sdk-board-card:hover {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+.sdk-board-toggle:hover .sdk-toggle-btn {
+    color: #fff !important;
+}
+
+.sdk-chip {
+    padding: 0.28rem 0.55rem;
+    border-radius: var(--radius-control);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+.sdk-chip.connected {
+    background: rgba(0, 230, 118, 0.12);
+    color: var(--success-color);
+    border-color: rgba(0, 230, 118, 0.2);
+    box-shadow: none;
+}
+.sdk-chip.demo {
+    background: rgba(255, 179, 0, 0.05);
+    color: var(--warning-color);
+    border-color: rgba(255, 179, 0, 0.1);
+}
+
+/* Keyboard Visualizer Styling (VIA/QMK Custom Keyboard) */
+.keyboard-visualizer-container {
+    background: #0f1016;
+    border: 1px solid #23263b;
+    border-radius: var(--radius-control);
+    padding: 12px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.65);
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+}
+.keyboard-inner-plate {
+    position: relative;
+    width: 550px;
+    height: 180px;
+    background: #141622;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.02);
+}
+.keycap-node {
+    position: absolute;
+    height: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #2b2e4a, #1f2136);
+    border: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 5px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 2px 4px rgba(0,0,0,0.4);
+}
+.keycap-node:hover {
+    transform: translateY(-2px) scale(1.02);
+    filter: brightness(1.2);
+    z-index: 10;
+}
+.keycap-node:active {
+    transform: translateY(1px);
+}
+.keycap-label {
+    font-size: 8px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    align-self: flex-start;
+    pointer-events: none;
+}
+.keycap-led-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 6px rgba(255,255,255,0.9);
+    pointer-events: none;
+}
+
+/* Custom Brands & GPU Tags */
+.device-type-badge.gpu-nvidia {
+    background: rgba(118, 185, 0, 0.15);
+    color: #76b900;
+}
+.device-type-badge.gpu-amd {
+    background: rgba(229, 27, 36, 0.15);
+    color: #e51b24;
+}
+
+/* Smart IoT Light Badges */
+.device-type-badge.iot-philips {
+    background: rgba(0, 180, 255, 0.15);
+    color: #00b4ff;
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.1);
+}
+.device-type-badge.iot-nanoleaf {
+    background: rgba(255, 87, 34, 0.15);
+    color: #ff5722;
+    box-shadow: 0 0 10px rgba(255, 87, 34, 0.1);
+}
+.device-type-badge.iot-govee {
+    background: rgba(156, 39, 176, 0.15);
+    color: #e040fb;
+    box-shadow: 0 0 10px rgba(156, 39, 176, 0.1);
+}
+
+/* Philips Hue Play Lightbar Styles */
+.lightbar-visualizer-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: var(--radius-control);
+    border: 1px solid var(--glass-border);
+}
+.lightbar-tube-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+.lightbar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.lightbar-tube {
+    width: 24px;
+    height: 120px;
+    border-radius: 12px;
+    position: relative;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lightbar-tube:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+.lightbar-inner-glow {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 100%);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+/* Nanoleaf Shapes Hexagons Styles */
+.nanoleaf-visualizer-container {
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: var(--radius-control);
+    border: 1px solid var(--glass-border);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    max-width: 100%;
+}
+.nanoleaf-inner-canvas {
+    position: relative;
+    width: 320px;
+    height: 200px;
+}
+.nanoleaf-hexagon {
+    position: absolute;
+    width: 50px;
+    height: 43px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nanoleaf-hexagon:hover {
+    transform: scale(1.1);
+    z-index: 10;
+}
+.hexagon-label {
+    pointer-events: none;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Govee Neon Rope Styles */
+.govee-visualizer-container {
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: var(--radius-control);
+    border: 1px solid var(--glass-border);
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.govee-svg-canvas {
+    width: 100%;
+    height: 150px;
+    overflow: visible;
+}
+.govee-rope-backing {
+    fill: none;
+    stroke-width: 12px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.3s ease;
+}
+.govee-rope-node {
+    cursor: pointer;
+    transition: r 0.2s, filter 0.2s;
+}
+.govee-rope-node:hover {
+    r: 9px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1)) !important;
+}
+.device-type-badge.custom-keyboard {
+    background: rgba(187, 134, 252, 0.15);
+    color: #bb86fc;
+}
+
+/* PC Monitor Metrics Widget */
+.monitor-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 0.5rem;
+}
+.metric-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+.metric-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+.metric-val {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+.metric-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+.metric-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.3);
+}
+.metric-bar.temp {
+    background: linear-gradient(to right, var(--success-color), var(--warning-color), #ff0055);
+}
+.metric-bar.load {
+    background: linear-gradient(to right, #00b4ff, #7f00ff);
+}
+.metric-bar.ram {
+    background: linear-gradient(to right, #00b4ff, #00e676);
+}
+
+/* Audio Visualizer Panel */
+.visualizer-container-frontend {
+    background: #0f1016;
+    border: 1.5px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+    overflow: hidden;
+}
+#visualizer-canvas {
+    width: 100%;
+    height: 90px;
+    background-color: transparent;
+    display: block;
+}
+
+/* Profile List styles */
+.profile-list {
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.15);
+}
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.2s ease;
+    margin-bottom: 0.35rem;
+}
+.profile-item:last-child {
+    margin-bottom: 0;
+}
+.profile-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+}
+.profile-item-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.profile-actions {
+    display: flex;
+    gap: 0.35rem;
+}
+.btn-profile-load {
+    background: rgba(0, 180, 255, 0.15);
+    color: var(--glow-color);
+    border: 1px solid rgba(0, 180, 255, 0.25);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+.btn-profile-load:hover {
+    background: var(--glow-color);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 180, 255, 0.4);
+}
+.btn-profile-del {
+    background: rgba(255, 0, 85, 0.15);
+    color: #ff0055;
+    border: 1px solid rgba(255, 0, 85, 0.25);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+.btn-profile-del:hover {
+    background: #ff0055;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
+}
+
+/* Category Filters & Chips */
+.filter-chip {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-control);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.filter-chip:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+.filter-chip.active {
+    background: rgba(0, 180, 255, 0.16);
+    color: #fff;
+    border-color: rgba(0, 180, 255, 0.5);
+    box-shadow: none;
+}
+
+/* Modals */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(4, 5, 10, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+.modal-content {
+    background: rgba(18, 20, 32, 0.95);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    width: 90%;
+    max-width: 680px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-header h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+.close-btn {
+    color: var(--text-secondary);
+    font-size: 1.8rem;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.close-btn:hover {
+    color: #fff;
+}
+.modal-body {
+    padding: 1.5rem;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+}
+.modal-divider {
+    border-top: 1px solid var(--border-color);
+    margin: 1.5rem 0;
+}
+
+/* Scanned HID Devices Table */
+.scanned-devices-table-wrapper {
+    background: rgba(0,0,0,0.25);
+    border-radius: 16px;
+    border: 1.5px solid var(--glass-border);
+    max-height: 180px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+.scanned-devices-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    text-align: left;
+}
+.scanned-devices-table th {
+    background: rgba(255,255,255,0.03);
+    padding: 0.6rem 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+}
+.scanned-devices-table td {
+    padding: 0.6rem 0.8rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    vertical-align: middle;
+}
+.scanned-devices-table tr:hover {
+    background: rgba(255,255,255,0.02);
+}
+.scanned-devices-table tr:last-child td {
+    border-bottom: none;
+}
+.btn-select-scanned {
+    background: rgba(0, 230, 118, 0.15);
+    color: var(--success-color);
+    border: 1px solid rgba(0, 230, 118, 0.25);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-select-scanned:hover {
+    background: var(--success-color);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+}
+
+/* RGB-likely row highlight in HID scan table */
+tr.hid-row-rgb {
+    background: rgba(0, 180, 255, 0.05);
+}
+tr.hid-row-rgb td:first-child {
+    border-left: 2px solid var(--glow-color);
+}
+.rgb-badge {
+    display: inline-block;
+    background: rgba(0, 180, 255, 0.18);
+    color: var(--glow-color);
+    border: 1px solid rgba(0, 180, 255, 0.35);
+    border-radius: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.1rem 0.4rem;
+    margin-right: 0.4rem;
+    vertical-align: middle;
+}
+
+/* Saved custom devices list in modal */
+.saved-device-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.65rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-size: 0.82rem;
+}
+.saved-device-name {
+    flex: 1;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.saved-device-meta {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    white-space: nowrap;
+}
+.btn-delete-device {
+    background: rgba(255, 68, 68, 0.12);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 68, 68, 0.25);
+    border-radius: 6px;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+}
+.btn-delete-device:hover {
+    background: rgba(255, 68, 68, 0.3);
+    box-shadow: 0 0 8px rgba(255, 68, 68, 0.35);
+}
+
+/* Mouse visualizer container */
+.mouse-visualizer-container {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mouse-svg-canvas {
+    width: 140px;
+    height: 180px;
+    overflow: visible;
+}
+.mouse-body-outline {
+    fill: #141622;
+    stroke: #2c2e4a;
+    stroke-width: 2px;
+    stroke-linejoin: round;
+    transition: filter 0.3s ease;
+}
+.mouse-wheel {
+    fill: #2c2e4a;
+    stroke-width: 1px;
+    transition: fill 0.3s ease;
+}
+.mouse-led-node {
+    cursor: pointer;
+    transition: r 0.2s, filter 0.2s;
+}
+.mouse-led-node:hover {
+    r: 6px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 1)) !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ====== WIDE SCREEN: 2-column layout ====== */
+@media (min-width: 1300px) {
+    .dashboard-grid {
+        grid-template-columns: 360px minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 1020px) {
+    body {
+        display: block;
+        overflow-x: hidden;
+    }
+
+    .app-sidebar {
+        position: static;
+        height: auto;
+        padding: 0.75rem 1rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .sidebar-brand {
+        margin-bottom: 0.4rem;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+    }
+
+    .nav-section-label {
+        display: none;
+    }
+
+    .nav-item {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* ====== SMALL/MOBILE REFINEMENTS ====== */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem 0.75rem;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding-bottom: 1.25rem;
+    }
+    
+    .status-badge-container-wrapper {
+        width: 100%;
+    }
+    
+    .status-badge-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .sdk-board-card {
+        padding: 1rem;
+    }
+    
+    .panel-card {
+        padding: 1rem;
+        border-radius: var(--radius-panel);
+    }
+    
+    .devices-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.75rem;
+    }
+
+    .layout-header {
+        flex-direction: column;
+    }
+
+    .layout-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .layout-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .layout-editor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .layout-profile-row {
+        grid-template-columns: 1fr;
+    }
+
+    .layout-canvas {
+        min-height: 460px;
+    }
+
+    .layout-device {
+        width: 132px;
+        padding: 0.55rem 0.6rem;
+    }
+
+    .layout-device-name {
+        font-size: 0.72rem;
+    }
+
+    .layout-device-meta {
+        font-size: 0.62rem;
+    }
+    
+    .devices-header > div {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .filter-bar {
+        padding: 1rem;
+        border-radius: 16px;
+    }
+    
+    .modal-content {
+        width: 95%;
+        border-radius: var(--radius-panel);
+    }
+    
+    .modal-header, .modal-body {
+        padding: 1.25rem;
+    }
+}
+
+/* ==========================================================================
+   ColorDock Card Local Controls & Node Selection
+   ========================================================================== */
+
+.control-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+}
+.control-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+}
+.control-col.shrink {
+    flex: 0 0 auto;
+    align-items: flex-start;
+}
+/* Color badge row: horizontal (badge + label side by side) */
+.control-row-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+.picker-wrapper {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--glass-border);
+    background: var(--bg-primary);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.picker-wrapper:hover {
+    transform: scale(1.05);
+    border-color: var(--glow-color);
+    box-shadow: 0 0 15px rgba(0, 180, 255, 0.4);
+}
+.card-color-picker {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 60px;
+    height: 60px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+.card-color-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+.card-color-picker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+.card-color-picker::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+.target-indicator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-control);
+    padding: 0.45rem 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    width: 100%;
+}
+.target-text {
+    font-weight: 600;
+}
+.btn-clear-target {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 0.15rem 0.45rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.btn-clear-target:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Selected Node Highlight & Glow */
+.keycap-node.selected-led,
+.led-node.selected-led,
+.nanoleaf-hexagon.selected-led {
+    outline: 2px solid #fff !important;
+    box-shadow: 0 0 15px #fff, inset 0 0 8px #fff !important;
+    transform: scale(1.08) !important;
+    z-index: 5;
+}
+.mouse-led-node.selected-led,
+.govee-rope-node.selected-led {
+    stroke: #fff !important;
+    stroke-width: 2.5px !important;
+    r: 8px !important;
+    filter: drop-shadow(0 0 10px #fff) !important;
+}
+.lightbar-tube.selected-led {
+    border-color: #fff !important;
+    box-shadow: 0 0 25px #fff !important;
+    transform: scale(1.05) !important;
+}
+
+/* Floating Color Picker Popover Redesign */
+.floating-picker {
+    position: fixed;
+    z-index: 10000;
+    background: rgba(15, 17, 28, 0.95);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 14px 16px;
+    width: 260px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 180, 255, 0.25);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    font-family: 'Outfit', sans-serif;
+    animation: pickerFadeIn 0.15s ease;
+}
+
+@keyframes pickerFadeIn {
+    from { opacity: 0; transform: scale(0.95) translateY(5px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Per-device effects grid inside device card */
+.device-effect-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.device-effect-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-control);
+    padding: 0.45rem 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+}
+.device-effect-btn:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(0, 180, 255, 0.4);
+    color: #fff;
+}
+.device-effect-btn.active {
+    background: rgba(0, 180, 255, 0.15);
+    border-color: var(--glow-color);
+    color: #fff;
+    box-shadow: none;
+}
+.device-effect-btn .dev-eff-icon {
+    font-size: 0.9rem;
+    line-height: 1;
+}
+.device-effect-btn .dev-eff-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.floating-picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 6px;
+}
+.floating-picker-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--glow-color);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+.floating-picker-close {
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.floating-picker-close:hover {
+    color: #fff;
+}
+.floating-picker-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.floating-picker-top-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.floating-picker-color-preview-wrapper {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    transition: transform 0.2s;
+}
+.floating-picker-color-preview-wrapper:hover {
+    transform: scale(1.03);
+}
+.floating-color-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 60px;
+    height: 60px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: -12px;
+}
+.floating-color-input::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+.floating-color-input::-webkit-color-swatch {
+    border: none;
+}
+.floating-hex-wrapper {
+    flex: 1;
+}
+.floating-hex-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.floating-hex-input:focus {
+    border-color: var(--glow-color);
+}
+.floating-quick-colors {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    width: 100%;
+}
+.floating-swatch {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    padding: 0;
+}
+.floating-swatch:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+.floating-sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 10px;
+}
+.floating-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.floating-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+.floating-slider-labels span:last-child {
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+}
+.floating-slider-input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    cursor: pointer;
+}
+.floating-slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+}
+.floating-slider-input::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+}
+.floating-slider-input.red::-webkit-slider-thumb {
+    background: #ff3b30;
+    box-shadow: 0 0 8px rgba(255, 59, 48, 0.5);
+}
+.floating-slider-input.green::-webkit-slider-thumb {
+    background: #4cd964;
+    box-shadow: 0 0 8px rgba(76, 217, 100, 0.5);
+}
+.floating-slider-input.blue::-webkit-slider-thumb {
+    background: #007aff;
+    box-shadow: 0 0 8px rgba(0, 122, 255, 0.5);
+}
+
+
+/* ==============================
+   RESPONSIVE MEDIA QUERIES
+   ============================== */
+
+/* ── 데스크탑 (960px 이상): 좌측 컨트롤 패널 + 우측 디바이스 섹션 나란히 */
+@media (min-width: 960px) {
+    .dashboard-grid {
+        grid-template-columns: 360px 1fr;
+        align-items: start;
+    }
+}
+
+/* ── 넓은 화면 (1200px 이상): 좌측 패널 좀 더 넓게 */
+@media (min-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: 360px minmax(0, 1fr);
+    }
+}
+
+/* ── 매우 넓은 화면 (1500px 이상) */
+@media (min-width: 1500px) {
+    .dashboard-grid {
+        grid-template-columns: 380px minmax(0, 1fr);
+    }
+}
+
+/* ── 태블릿 이하 (959px 이하): 세로 스택 */
+@media (max-width: 959px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .device-card {
+        grid-template-columns: 1fr;
+    }
+    .device-info-panel {
+        grid-template-columns: 1fr;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-right: 0;
+        padding-bottom: 0.85rem;
+    }
+}
+
+/* ── 모바일 (600px 이하) */
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+    }
+    h1 {
+        font-size: 1.3rem;
+    }
+    .device-effect-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ==========================================================================
+   UI/UX ENHANCEMENTS
+   ========================================================================== */
+
+/* ── 누락된 로고 rotateHue 애니메이션 */
+@keyframes rotateHue {
+    0%   { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* ── 상태 표시 도트 펄스 애니메이션 */
+@keyframes pulseGreen {
+    0%, 100% { box-shadow: 0 0 6px var(--success-color); }
+    50%       { box-shadow: 0 0 14px var(--success-color), 0 0 22px var(--success-color); }
+}
+@keyframes pulseAmber {
+    0%, 100% { box-shadow: 0 0 6px var(--warning-color); }
+    50%       { box-shadow: 0 0 14px var(--warning-color), 0 0 22px var(--warning-color); }
+}
+.status-indicator.hardware { animation: pulseGreen 2.4s ease-in-out infinite; }
+.status-indicator.demo     { animation: pulseAmber 2.4s ease-in-out infinite; }
+.status-indicator.warning  { animation: pulseAmber 2.4s ease-in-out infinite; }
+
+/* ── 사이드바 활성 항목: 좌측 액센트 바 */
+.nav-item {
+    border-left: 2px solid transparent;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+.nav-item:hover {
+    background: rgba(0, 180, 255, 0.08);
+    color: #e0eeff;
+}
+.nav-item.active {
+    background: rgba(0, 180, 255, 0.14);
+    color: #fff;
+    border-left-color: var(--glow-color);
+    box-shadow: inset 0 0 18px rgba(0, 180, 255, 0.06);
+}
+
+/* ── 패널 카드 타이틀 구분선 */
+.card-title {
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── 패널 카드 hover 강조 */
+.panel-card {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.panel-card:hover {
+    border-color: rgba(0, 180, 255, 0.15);
+    box-shadow: 0 0 0 1px rgba(0, 180, 255, 0.06);
+}
+
+/* ── 이펙트 카드 활성 글로우 + 호버 개선 */
+.effect-card {
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+    min-height: 46px;
+}
+.effect-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 180, 255, 0.45);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.effect-card.active {
+    background: rgba(0, 180, 255, 0.16);
+    border-color: var(--glow-color);
+    box-shadow: 0 0 12px rgba(0, 180, 255, 0.2), inset 0 0 10px rgba(0, 180, 255, 0.06);
+}
+.effect-card.active .effect-name {
+    color: #fff;
+}
+.effect-card.active .effect-icon {
+    filter: drop-shadow(0 0 4px rgba(0, 180, 255, 0.8));
+}
+
+/* ── HEX 입력 필드 (색상 피커 패널) */
+.hex-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+.hex-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+.hex-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-control);
+    color: #fff;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 0.42rem 0.75rem;
+    text-align: center;
+    outline: none;
+    letter-spacing: 0.08em;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+.hex-input:focus {
+    border-color: var(--glow-color);
+    box-shadow: 0 0 0 2px rgba(0, 180, 255, 0.15);
+}
+
+/* ── 퀵 컬러 스와치 더 많이 (10개 = 2행) */
+.quick-colors {
+    grid-template-columns: repeat(5, 1fr);
+}
+.color-swatch {
+    height: 28px;
+    border-radius: var(--radius-control);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.color-swatch:hover {
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.color-swatch.active {
+    border-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* ── 슬라이더 더 명확한 트랙 */
+.slider-input {
+    height: 6px;
+}
+.slider-input::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+/* ── 메트릭 바 높이 증가 */
+.metric-bar-bg {
+    height: 10px;
+    border-radius: 5px;
+}
+.metric-bar {
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0, 180, 255, 0.25);
+}
+.metric-bar.temp  { box-shadow: 0 0 8px rgba(255, 100, 0, 0.3); }
+.metric-bar.load  { box-shadow: 0 0 8px rgba(127, 0, 255, 0.3); }
+.metric-bar.ram   { box-shadow: 0 0 8px rgba(0, 230, 118, 0.3); }
+.metric-info {
+    font-size: 0.83rem;
+    margin-bottom: 0.1rem;
+}
+.metric-val {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}
+
+/* ── 버튼 전반 개선 */
+.btn-reconnect {
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+.btn-reconnect:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.btn-reconnect:active {
+    transform: translateY(0);
+}
+
+/* ── 배지/칩 개선 */
+.sdk-chip.connected {
+    box-shadow: 0 0 6px rgba(0, 230, 118, 0.2);
+}
+
+/* ── 오디오 탭 빈 상태 */
+#visualizer-canvas {
+    border-radius: 10px;
+}
+.visualizer-container-frontend {
+    background: linear-gradient(180deg, #0a0c14 0%, #0f1016 100%);
+    border-color: rgba(0, 180, 255, 0.12);
+    min-height: 100px;
+}
+
+/* ── 기기 이펙트 버튼 활성 상태 개선 */
+.device-effect-btn.active {
+    background: rgba(0, 180, 255, 0.16);
+    border-color: var(--glow-color);
+    box-shadow: 0 0 8px rgba(0, 180, 255, 0.18);
+}
+
+/* ── 스크롤바 더 보이게 */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 180, 255, 0.35);
+}
+
+/* ── 필터 칩 활성 개선 */
+.filter-chip.active {
+    box-shadow: 0 0 8px rgba(0, 180, 255, 0.2);
+}
+
+/* ── 존 필 활성 개선 */
+.zone-pill.active {
+    box-shadow: 0 0 8px rgba(0, 180, 255, 0.2);
+}
+
+/* ── SDK 칩 hover */
+.sdk-chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ── 헤더 구분선 */
+header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCENE / GRADIENT / SCHEDULE UI
+═══════════════════════════════════════════════════════════════ */
+
+/* Scene Cards */
+.scene-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    text-align: center;
+    position: relative;
+}
+.scene-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    border-color: var(--glow-color);
+}
+.scene-icon { font-size: 2rem; line-height: 1; }
+.scene-name { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+.scene-meta { font-size: 0.72rem; color: var(--text-secondary); }
+.scene-actions { display: flex; gap: 0.4rem; margin-top: 0.4rem; }
+.scene-load-btn {
+    font-size: 0.72rem; padding: 0.3rem 0.7rem;
+    background: rgba(0,180,255,0.12); border: 1px solid rgba(0,180,255,0.3);
+    color: var(--glow-color); border-radius: 6px; cursor: pointer;
+    transition: background 0.15s;
+}
+.scene-load-btn:hover { background: rgba(0,180,255,0.25); }
+.scene-del-btn {
+    font-size: 0.8rem; padding: 0.3rem 0.5rem;
+    background: rgba(255,0,80,0.08); border: 1px solid rgba(255,0,80,0.2);
+    color: #ff4466; border-radius: 6px; cursor: pointer;
+}
+.scene-del-btn:hover { background: rgba(255,0,80,0.2); }
+
+/* Gradient editor buttons */
+.gradient-preset-btn {
+    font-size: 0.72rem; padding: 0.32rem 0.65rem;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 6px; cursor: pointer; color: var(--text-primary);
+    transition: border-color 0.15s, background 0.15s;
+}
+.gradient-preset-btn:hover { border-color: var(--glow-color); background: rgba(0,180,255,0.08); }
+.gradient-mode-btn {
+    font-size: 0.75rem; padding: 0.35rem 0.75rem;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 6px; cursor: pointer; color: var(--text-secondary);
+    transition: all 0.15s;
+}
+.gradient-mode-btn.active { border-color: var(--glow-color); color: var(--glow-color); background: rgba(0,180,255,0.1); }
+
+/* Gradient editor button on device card */
+.btn-gradient-edit {
+    font-size: 0.68rem; padding: 0.3rem 0.65rem; margin-top: 0.3rem;
+    background: rgba(0,180,255,0.06); border: 1px solid rgba(0,180,255,0.2);
+    border-radius: 6px; cursor: pointer; color: var(--glow-color);
+    transition: background 0.15s;
+    width: 100%;
+}
+.btn-gradient-edit:hover { background: rgba(0,180,255,0.15); }
+
+/* Schedule rows */
+.schedule-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 10px; padding: 0.7rem 1rem; gap: 0.75rem;
+    flex-wrap: wrap;
+    transition: border-color 0.18s;
+}
+.schedule-row.disabled { opacity: 0.5; }
+.schedule-row:hover { border-color: rgba(0,180,255,0.25); }
+.schedule-info { display: flex; flex-direction: column; gap: 0.2rem; flex: 1; }
+.schedule-name { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+.schedule-meta { font-size: 0.72rem; color: var(--text-secondary); }
+.schedule-btns { display: flex; gap: 0.4rem; align-items: center; }
+.sched-toggle-btn {
+    font-size: 0.7rem; padding: 0.28rem 0.6rem; border-radius: 6px; cursor: pointer;
+    border: 1px solid; transition: all 0.15s;
+}
+.sched-toggle-btn.on  { border-color: rgba(0,230,118,0.4); color: #00e676; background: rgba(0,230,118,0.08); }
+.sched-toggle-btn.off { border-color: rgba(255,255,255,0.1); color: var(--text-secondary); background: transparent; }
+.sched-edit-btn, .sched-del-btn {
+    font-size: 0.78rem; padding: 0.28rem 0.5rem; border-radius: 6px;
+    cursor: pointer; background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: var(--text-secondary); transition: all 0.15s;
+}
+.sched-edit-btn:hover { border-color: var(--glow-color); color: var(--glow-color); }
+.sched-del-btn:hover  { border-color: #ff4466; color: #ff4466; }
+
+/* Schedule modal buttons */
+.sched-type-btn, .sched-action-btn {
+    font-size: 0.75rem; padding: 0.38rem 0.8rem; border-radius: 7px; cursor: pointer;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: var(--text-secondary); transition: all 0.15s;
+}
+.sched-type-btn.active, .sched-action-btn.active {
+    border-color: var(--glow-color); color: var(--glow-color);
+    background: rgba(0,180,255,0.1); font-weight: 600;
+}
+.sched-day-btn {
+    font-size: 0.72rem; padding: 0.28rem 0.55rem; border-radius: 6px;
+    cursor: pointer; background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: var(--text-secondary); transition: all 0.15s;
+}
+.sched-day-btn.active {
+    background: rgba(0,180,255,0.15); border-color: var(--glow-color);
+    color: var(--glow-color); font-weight: 600;
+}
+.proc-item:hover { background: var(--surface-muted); }
+
+/* ═══════════════════════════════════════════════════════════════
+   GAMER MODE OVERRIDES
+   전체 UI를 HUD / 사이버펑크 게이밍 스타일로 재정의
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 새 CSS 변수 (dark 모드 전용) ── */
+[data-theme="dark"], :root {
+    --neon-cyan:     #00e5ff;
+    --neon-purple:   #bf00ff;
+    --neon-green:    #00ff88;
+    --neon-orange:   #ff6b00;
+    --neon-pink:     #ff0066;
+    --hex-grid:      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpolygon points='28,2 54,16 54,50 28,64 2,50 2,16' fill='none' stroke='rgba(0,180,255,0.07)' stroke-width='1'/%3E%3Cpolygon points='28,52 54,66 54,100 28,114 2,100 2,66' fill='none' stroke='rgba(0,180,255,0.07)' stroke-width='1'/%3E%3C/svg%3E");
+    --bracket-color: rgba(0,229,255,0.55);
+    --card-glow-rgb: 0, 180, 255;
+    --orbitron:      'Orbitron', sans-serif;
+}
+
+/* ── 키프레임 ── */
+@keyframes rgbBorderCycle {
+    0%   { border-color: var(--neon-cyan); box-shadow: 0 0 12px rgba(0,229,255,0.4); }
+    25%  { border-color: var(--neon-purple); box-shadow: 0 0 12px rgba(191,0,255,0.4); }
+    50%  { border-color: var(--neon-green); box-shadow: 0 0 12px rgba(0,255,136,0.4); }
+    75%  { border-color: var(--neon-orange); box-shadow: 0 0 12px rgba(255,107,0,0.4); }
+    100% { border-color: var(--neon-cyan); box-shadow: 0 0 12px rgba(0,229,255,0.4); }
+}
+@keyframes glowPulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.55; }
+}
+@keyframes scanSweep {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+@keyframes neonFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.7; }
+}
+@keyframes cornerReveal {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+}
+@keyframes rgbLogoSpin {
+    0%   { filter: hue-rotate(0deg)   drop-shadow(0 0 8px rgba(0,180,255,0.8)); }
+    50%  { filter: hue-rotate(180deg) drop-shadow(0 0 14px rgba(191,0,255,0.8)); }
+    100% { filter: hue-rotate(360deg) drop-shadow(0 0 8px rgba(0,180,255,0.8)); }
+}
+
+/* ── Body — 헥사곤 그리드 배경 ── */
+[data-theme="dark"] body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: var(--hex-grid);
+    background-size: 56px 100px;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 0;
+}
+[data-theme="dark"] body > * { position: relative; z-index: 1; }
+
+/* ── 사이드바 — 사이버 패널 ── */
+[data-theme="dark"] .app-sidebar {
+    border-right: 1px solid rgba(0, 180, 255, 0.18);
+    background: linear-gradient(180deg,
+        rgba(6, 8, 14, 0.99) 0%,
+        rgba(8, 10, 18, 0.99) 100%);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6), inset -1px 0 0 rgba(0,229,255,0.06);
+}
+
+/* ── 브랜드 로고 — RGB 사이클링 ── */
+[data-theme="dark"] .logo-icon {
+    background: linear-gradient(135deg, #00b4ff, #8000ff);
+    animation: rgbLogoSpin 4s linear infinite;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(0,229,255,0.3), 0 0 20px rgba(0,180,255,0.5);
+}
+[data-theme="dark"] .sidebar-brand strong {
+    font-family: var(--orbitron);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    background: linear-gradient(90deg, #00e5ff, #bf00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+}
+[data-theme="dark"] .sidebar-brand span {
+    font-family: var(--orbitron);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0,229,255,0.5);
+}
+
+/* ── Nav 섹션 레이블 ── */
+[data-theme="dark"] .nav-section-label {
+    font-family: var(--orbitron);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: rgba(0,229,255,0.45);
+    border-bottom: 1px solid rgba(0,229,255,0.1);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+/* ── Nav 아이템 — 날카로운 왼쪽 바 ── */
+[data-theme="dark"] .nav-item {
+    border-radius: 0 6px 6px 0;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
+    font-family: var(--orbitron);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+}
+[data-theme="dark"] .nav-item:hover {
+    background: rgba(0,229,255,0.07);
+    border-left-color: rgba(0,229,255,0.4);
+    color: rgba(0,229,255,0.9);
+    padding-left: 0.9rem;
+}
+[data-theme="dark"] .nav-item.active {
+    background: linear-gradient(90deg, rgba(0,229,255,0.14) 0%, rgba(0,229,255,0.02) 100%);
+    border-left: 2px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow: inset 0 0 20px rgba(0,229,255,0.06);
+    text-shadow: 0 0 12px rgba(0,229,255,0.6);
+    padding-left: 0.9rem;
+}
+
+/* ── h1 타이틀 — Orbitron + 네온 ── */
+[data-theme="dark"] h1 {
+    font-family: var(--orbitron);
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    background: linear-gradient(90deg, #fff 0%, #00e5ff 50%, #bf00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+/* ── 섹션 카드 heading — 왼쪽 네온 바 ── */
+[data-theme="dark"] .section-card h2,
+[data-theme="dark"] .section-card h3,
+[data-theme="dark"] .dashboard-card h2,
+[data-theme="dark"] .dashboard-card h3 {
+    font-family: var(--orbitron);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+}
+
+/* ── 카드 — HUD 코너 브라켓 ── */
+[data-theme="dark"] .section-card,
+[data-theme="dark"] .dashboard-card {
+    position: relative;
+    border: 1px solid rgba(0,180,255,0.12);
+    background: rgba(8, 11, 18, 0.88);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+[data-theme="dark"] .section-card:hover,
+[data-theme="dark"] .dashboard-card:hover {
+    border-color: rgba(0,229,255,0.25);
+    box-shadow: 0 0 30px rgba(0,180,255,0.08), 0 8px 32px rgba(0,0,0,0.5);
+}
+/* 브라켓 — 왼쪽 위 */
+[data-theme="dark"] .section-card::before,
+[data-theme="dark"] .dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 14px; height: 14px;
+    border-top: 2px solid var(--neon-cyan);
+    border-left: 2px solid var(--neon-cyan);
+    border-radius: 2px 0 0 0;
+    z-index: 2;
+    animation: cornerReveal 0.4s ease both;
+}
+/* 브라켓 — 오른쪽 아래 */
+[data-theme="dark"] .section-card::after,
+[data-theme="dark"] .dashboard-card::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 14px; height: 14px;
+    border-bottom: 2px solid rgba(0,229,255,0.45);
+    border-right: 2px solid rgba(0,229,255,0.45);
+    border-radius: 0 0 2px 0;
+    z-index: 2;
+}
+
+/* ── 기기 카드 — 더 강렬한 HUD 스타일 ── */
+[data-theme="dark"] .device-card {
+    border: 1px solid rgba(0,180,255,0.13);
+    background: rgba(7, 9, 16, 0.9);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.25s, transform 0.15s;
+}
+[data-theme="dark"] .device-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+[data-theme="dark"] .device-card:hover::before { opacity: 1; }
+[data-theme="dark"] .device-card:hover {
+    border-color: rgba(0,229,255,0.3);
+    box-shadow: 0 0 24px rgba(0,180,255,0.12), 0 12px 40px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+}
+/* 기기 카드 타입별 왼쪽 색상 바 */
+[data-theme="dark"] .device-card[data-type="Keyboard"],
+[data-theme="dark"] .device-card[data-type="keyboard"] {
+    border-left: 3px solid var(--neon-cyan);
+}
+[data-theme="dark"] .device-card[data-type="Mouse"],
+[data-theme="dark"] .device-card[data-type="mouse"] {
+    border-left: 3px solid var(--neon-purple);
+}
+[data-theme="dark"] .device-card[data-type="GPU"],
+[data-theme="dark"] .device-card[data-type="gpu"] {
+    border-left: 3px solid var(--neon-orange);
+}
+[data-theme="dark"] .device-card[data-type="Motherboard"],
+[data-theme="dark"] .device-card[data-type="motherboard"] {
+    border-left: 3px solid #00ff88;
+}
+[data-theme="dark"] .device-card[data-type="Memory"],
+[data-theme="dark"] .device-card[data-type="memory"] {
+    border-left: 3px solid #ffcc00;
+}
+[data-theme="dark"] .device-card[data-type="Fan"],
+[data-theme="dark"] .device-card[data-type="fan"],
+[data-theme="dark"] .device-card[data-type="AIO Cooler"],
+[data-theme="dark"] .device-card[data-type="CPU Cooler"] {
+    border-left: 3px solid #00e5b0;
+}
+[data-theme="dark"] .device-card[data-type="LED Strip"],
+[data-theme="dark"] .device-card[data-type="Smart Light"] {
+    border-left: 3px solid var(--neon-pink);
+}
+[data-theme="dark"] .device-card[data-type="Headset"] {
+    border-left: 3px solid #ff9900;
+}
+
+/* ── 이펙트 카드 — 게이밍 타일 ── */
+[data-theme="dark"] .effect-card {
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(10,12,20,0.8);
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+}
+[data-theme="dark"] .effect-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,229,255,0.06), transparent);
+    transition: left 0.4s ease;
+}
+[data-theme="dark"] .effect-card:hover::before { left: 100%; }
+[data-theme="dark"] .effect-card:hover {
+    border-color: rgba(0,229,255,0.35);
+    background: rgba(0,229,255,0.07);
+    box-shadow: 0 0 16px rgba(0,229,255,0.15);
+    transform: translateY(-1px);
+}
+[data-theme="dark"] .effect-card.active {
+    background: linear-gradient(135deg, rgba(0,229,255,0.14), rgba(0,229,255,0.04));
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0,229,255,0.25), inset 0 0 20px rgba(0,229,255,0.04);
+}
+[data-theme="dark"] .effect-card.active .effect-name {
+    color: var(--neon-cyan);
+    font-family: var(--orbitron);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 10px rgba(0,229,255,0.5);
+}
+[data-theme="dark"] .effect-name {
+    font-family: var(--orbitron);
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* ── 버튼 — 게이밍 스타일 ── */
+[data-theme="dark"] .btn-reconnect {
+    font-family: var(--orbitron);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+[data-theme="dark"] .btn-reconnect:hover {
+    box-shadow: 0 0 16px rgba(0,180,255,0.3), 0 4px 12px rgba(0,0,0,0.4);
+    transform: translateY(-1px);
+}
+[data-theme="dark"] .btn-reconnect:active { transform: translateY(0); }
+
+/* SDK 연결 버튼 — 강조 */
+[data-theme="dark"] #btn-reconnect-sdk,
+[data-theme="dark"] .btn-reconnect[onclick*="reconnect"] {
+    border-color: rgba(0,229,255,0.4);
+    background: rgba(0,229,255,0.08);
+    color: var(--neon-cyan);
+}
+
+/* ── 디바이스 카운트 텍스트 ── */
+[data-theme="dark"] .devices-count-text {
+    font-family: var(--orbitron);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0,229,255,0.4);
+}
+
+/* ── 필터 칩 — 게이밍 스타일 ── */
+[data-theme="dark"] .filter-chip {
+    font-family: var(--orbitron);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.15s ease;
+}
+[data-theme="dark"] .filter-chip:hover {
+    border-color: rgba(0,229,255,0.35);
+    background: rgba(0,229,255,0.08);
+    color: var(--neon-cyan);
+}
+[data-theme="dark"] .filter-chip.active {
+    border-color: var(--neon-cyan);
+    background: rgba(0,229,255,0.14);
+    color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0,229,255,0.2);
+}
+
+/* ── LED 노드 — 더 강한 글로우 ── */
+[data-theme="dark"] .led-node {
+    box-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+}
+[data-theme="dark"] .led-node:hover {
+    box-shadow: 0 0 12px currentColor, 0 0 24px currentColor, 0 0 40px currentColor;
+    transform: scale(1.3);
+}
+
+/* ── 상태 도트 — 강한 펄스 ── */
+[data-theme="dark"] .status-dot,
+[data-theme="dark"] .sdk-status-dot {
+    box-shadow: 0 0 8px currentColor;
+}
+
+/* ── 스크롤바 — 네온 ── */
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: rgba(0,180,255,0.2);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,229,255,0.5);
+    box-shadow: 0 0 8px rgba(0,229,255,0.4);
+}
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.4);
+}
+
+/* ── 인풋 / 슬라이더 — 사이버 스타일 ── */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] textarea {
+    border-color: rgba(0,180,255,0.15) !important;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+[data-theme="dark"] input[type="text"]:focus,
+[data-theme="dark"] input[type="number"]:focus,
+[data-theme="dark"] textarea:focus {
+    border-color: var(--neon-cyan) !important;
+    box-shadow: 0 0 0 2px rgba(0,229,255,0.12), 0 0 12px rgba(0,229,255,0.1) !important;
+    outline: none;
+}
+[data-theme="dark"] .slider-input {
+    accent-color: var(--neon-cyan);
+}
+
+/* ── 커스텀 셀렉트 — 게이밍 ── */
+[data-theme="dark"] .custom-select-trigger {
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+[data-theme="dark"] .custom-select.open .custom-select-trigger {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 0 2px rgba(0,229,255,0.12), 0 0 12px rgba(0,229,255,0.1);
+}
+[data-theme="dark"] .custom-select-dropdown {
+    border-color: rgba(0,229,255,0.18);
+    border-radius: 4px;
+}
+[data-theme="dark"] .custom-select-option.selected {
+    color: var(--neon-cyan);
+    border-left-color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0,229,255,0.4);
+}
+
+/* ── 모니터링 수치 — Orbitron ── */
+[data-theme="dark"] .metric-value,
+[data-theme="dark"] .metric-number,
+[data-theme="dark"] .stat-value,
+[data-theme="dark"] .wmi-val {
+    font-family: var(--orbitron);
+    letter-spacing: 0.04em;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0,229,255,0.35);
+}
+
+/* ── 기기 이름 헤딩 — 굵은 Orbitron ── */
+[data-theme="dark"] .device-card h3,
+[data-theme="dark"] .device-card .device-name {
+    font-family: var(--orbitron);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* ── 기기 타입 배지 ── */
+[data-theme="dark"] .device-type-tag {
+    font-family: var(--orbitron);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    padding: 0.15rem 0.45rem;
+}
+
+/* ── SDK 보드 — 사이버 그리드 ── */
+[data-theme="dark"] .sdk-board-card {
+    border-color: rgba(0,180,255,0.12);
+    background: rgba(6,8,14,0.9);
+}
+[data-theme="dark"] .sdk-board-title {
+    font-family: var(--orbitron);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+[data-theme="dark"] .sdk-chip {
+    border-radius: 4px;
+    font-size: 0.72rem;
+}
+[data-theme="dark"] .sdk-chip.connected {
+    border-color: rgba(0,255,136,0.3);
+    color: var(--neon-green);
+    background: rgba(0,255,136,0.07);
+    box-shadow: 0 0 8px rgba(0,255,136,0.15);
+}
+
+/* ── 프로파일 저장 버튼 — 강조 ── */
+[data-theme="dark"] #btn-save-profile {
+    font-family: var(--orbitron);
+    letter-spacing: 0.06em;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    background: rgba(0,229,255,0.1);
+    border-color: rgba(0,229,255,0.3);
+    color: var(--neon-cyan);
+}
+[data-theme="dark"] #btn-save-profile:hover {
+    background: rgba(0,229,255,0.18);
+    box-shadow: 0 0 14px rgba(0,229,255,0.25);
+}
+
+/* ── 스캔 RGB 배지 — 네온 펄스 ── */
+[data-theme="dark"] .rgb-badge {
+    animation: glowPulse 1.8s ease-in-out infinite;
+    background: rgba(0,229,255,0.15);
+    border-color: rgba(0,229,255,0.4);
+    color: var(--neon-cyan);
+    font-family: var(--orbitron);
+}
+
+/* ── Load-more 버튼 — 게이밍 ── */
+[data-theme="dark"] .load-more-devices-btn {
+    font-family: var(--orbitron);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-style: solid;
+    border-color: rgba(0,180,255,0.2);
+    background: rgba(0,10,20,0.6);
+    transition: all 0.2s ease;
+}
+[data-theme="dark"] .load-more-devices-btn:hover {
+    border-color: var(--neon-cyan);
+    background: rgba(0,229,255,0.07);
+    box-shadow: 0 0 20px rgba(0,229,255,0.15);
+    color: var(--neon-cyan);
+}
+
+/* ── 디바이스 이펙트 버튼 — 타입별 색상 ── */
+[data-theme="dark"] .device-effect-btn {
+    border-radius: 4px;
+    font-size: 0.7rem;
+    transition: all 0.12s ease;
+}
+[data-theme="dark"] .device-effect-btn:hover {
+    border-color: rgba(0,229,255,0.4);
+    box-shadow: 0 0 10px rgba(0,229,255,0.2);
+}
+[data-theme="dark"] .device-effect-btn.active {
+    background: rgba(0,229,255,0.12);
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow: 0 0 12px rgba(0,229,255,0.25);
+    text-shadow: 0 0 8px rgba(0,229,255,0.5);
+}
+
+/* ── 테마 토글 — 더 게이밍 ── */
+[data-theme="dark"] .theme-toggle {
+    font-family: var(--orbitron);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-color: rgba(0,180,255,0.15);
+    color: rgba(0,229,255,0.6);
+}
+[data-theme="dark"] .theme-toggle:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(0,229,255,0.15);
+}
+[data-theme="dark"] .theme-toggle-track {
+    border-color: rgba(0,180,255,0.25);
+}
+
+/* ── 스캔 스위프 효과 (선택적 — 오버레이) ── */
+[data-theme="dark"] .app-sidebar::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,229,255,0.6), transparent);
+    top: 0;
+    animation: scanSweep 6s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.4;
+}
+
+/* ── 디바이스 카드 이펙트 버튼 "독립 모드" 색상 ── */
+[data-theme="dark"] .device-effect-btn[data-mode="rainbow"].active {
+    color: #ff9900; border-color: #ff9900;
+    box-shadow: 0 0 12px rgba(255,153,0,0.3);
+}
+[data-theme="dark"] .device-effect-btn[data-mode="breathing"].active {
+    color: var(--neon-purple); border-color: var(--neon-purple);
+    box-shadow: 0 0 12px rgba(191,0,255,0.3);
+}
+[data-theme="dark"] .device-effect-btn[data-mode="wave"].active {
+    color: #00bfff; border-color: #00bfff;
+    box-shadow: 0 0 12px rgba(0,191,255,0.3);
+}
+[data-theme="dark"] .device-effect-btn[data-mode="audio"].active {
+    color: var(--neon-green); border-color: var(--neon-green);
+    box-shadow: 0 0 12px rgba(0,255,136,0.3);
+    animation: glowPulse 0.8s ease-in-out infinite;
+}
+
+/* ── 섹션 카드 제목 줄 ── */
+[data-theme="dark"] .section-card > *:first-child,
+[data-theme="dark"] .dashboard-card > *:first-child {
+    position: relative;
+}
+
+/* ── 모달 — 게이밍 스타일 ── */
+[data-theme="dark"] .modal-content {
+    border-color: rgba(0,229,255,0.2);
+    background: rgba(5,7,14,0.97);
+    box-shadow: 0 0 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,229,255,0.08);
+}
+[data-theme="dark"] .modal-content::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 20px; height: 20px;
+    border-top: 2px solid var(--neon-cyan);
+    border-left: 2px solid var(--neon-cyan);
+}
+[data-theme="dark"] .modal-content::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 20px; height: 20px;
+    border-bottom: 2px solid rgba(0,229,255,0.45);
+    border-right: 2px solid rgba(0,229,255,0.45);
+}
+
+/* ── "더보기" 버튼 — RGB 테두리 ── */
+[data-theme="dark"] #btn-add-hid {
+    animation: rgbBorderCycle 4s ease-in-out infinite;
+    font-family: var(--orbitron);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT MODE GAMER OVERRIDES
+   라이트 모드에도 동일한 게이밍 HUD 스타일 적용
+   (다크 네온 대신 딥 시안/퍼플/그린 계열로 가시성 확보)
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 라이트 모드 게이머 색상 변수 ── */
+[data-theme="light"] {
+    --lm-cyan:    #0077aa;
+    --lm-purple:  #6600cc;
+    --lm-green:   #007744;
+    --lm-orange:  #cc5500;
+    --lm-pink:    #cc0055;
+    --lm-bracket: rgba(0, 119, 170, 0.5);
+}
+
+/* ── 사이드바 브랜드 — Orbitron ── */
+[data-theme="light"] .sidebar-brand strong {
+    font-family: var(--orbitron);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    background: linear-gradient(90deg, #0077aa, #6600cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+[data-theme="light"] .sidebar-brand span {
+    font-family: var(--orbitron);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    color: #0077aa;
+    opacity: 0.85;
+    text-transform: uppercase;
+}
+
+/* ── Nav 섹션 라벨 ── */
+[data-theme="light"] .nav-section-label {
+    font-family: var(--orbitron);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: #0077aa;
+    font-weight: 700;
+}
+
+/* ── Nav 아이템 — 액티브 표시 ── */
+[data-theme="light"] .nav-item {
+    font-family: var(--orbitron);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;       /* 0.06em → 줄임 */
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+    color: var(--text-primary);   /* 기본 상태 가독성 확보 */
+}
+[data-theme="light"] .nav-item:hover {
+    border-left-color: rgba(0, 119, 170, 0.35);
+    color: #0077aa;
+}
+[data-theme="light"] .nav-item.active {
+    border-left-color: #0077aa;
+    color: #0077aa;
+    background: rgba(0, 119, 170, 0.07);
+    font-weight: 700;
+}
+
+/* ── 페이지 제목 h1 ── */
+[data-theme="light"] .workspace-heading h1 {
+    font-family: var(--orbitron);
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #0077aa 0%, #6600cc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── 카드 헤딩 (h2, h3) ── */
+[data-theme="light"] .section-card h2,
+[data-theme="light"] .section-card h3,
+[data-theme="light"] .dashboard-card h2,
+[data-theme="light"] .dashboard-card h3 {
+    font-family: var(--orbitron);
+    letter-spacing: 0.04em;
+}
+
+/* ── 섹션/대시보드 카드 — HUD 코너 브래킷 ── */
+[data-theme="light"] .section-card,
+[data-theme="light"] .dashboard-card {
+    position: relative;
+}
+[data-theme="light"] .section-card::before,
+[data-theme="light"] .dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 18px; height: 18px;
+    border-top: 2px solid var(--lm-bracket);
+    border-left: 2px solid var(--lm-bracket);
+    border-radius: 2px 0 0 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+[data-theme="light"] .section-card::after,
+[data-theme="light"] .dashboard-card::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 18px; height: 18px;
+    border-bottom: 2px solid rgba(0,119,170,0.3);
+    border-right: 2px solid rgba(0,119,170,0.3);
+    border-radius: 0 0 2px 0;
+    pointer-events: none;
+}
+
+/* ── 기기 카드 — Orbitron 이름, 타입별 왼쪽 테두리 ── */
+[data-theme="light"] .device-card {
+    border-left: 3px solid rgba(0,119,170,0.25);
+    transition: border-left-color 0.25s, box-shadow 0.25s;
+}
+[data-theme="light"] .device-card:hover {
+    border-left-color: #0077aa;
+    box-shadow: -3px 0 12px rgba(0,119,170,0.2), 0 4px 20px rgba(0,0,0,0.06);
+}
+[data-theme="light"] .device-name {
+    font-family: var(--orbitron);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+}
+[data-theme="light"] .device-type-badge {
+    font-family: var(--orbitron);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+[data-theme="light"] .input-label {
+    font-family: var(--orbitron);
+    font-size: 0.72rem;           /* 9.6px → 11.52px */
+    letter-spacing: 0.08em;       /* 0.12em → 줄임 */
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+/* 타입별 왼쪽 테두리 색상 */
+[data-theme="light"] .device-card[data-type="Keyboard"],
+[data-theme="light"] .device-card[data-type="keyboard"] {
+    border-left-color: var(--lm-cyan);
+}
+[data-theme="light"] .device-card[data-type="Mouse"],
+[data-theme="light"] .device-card[data-type="mouse"] {
+    border-left-color: var(--lm-purple);
+}
+[data-theme="light"] .device-card[data-type="GPU"],
+[data-theme="light"] .device-card[data-type="gpu"] {
+    border-left-color: var(--lm-orange);
+}
+[data-theme="light"] .device-card[data-type="Motherboard"],
+[data-theme="light"] .device-card[data-type="motherboard"] {
+    border-left-color: var(--lm-green);
+}
+[data-theme="light"] .device-card[data-type="RAM"],
+[data-theme="light"] .device-card[data-type="Memory"] {
+    border-left-color: #cc9900;
+}
+[data-theme="light"] .device-card[data-type="Fan"],
+[data-theme="light"] .device-card[data-type="fan"] {
+    border-left-color: #007788;
+}
+[data-theme="light"] .device-card[data-type="LED Strip"],
+[data-theme="light"] .device-card[data-type="Smart Light"] {
+    border-left-color: var(--lm-pink);
+}
+
+/* ── 이펙트 카드 — 액티브 상태 ── */
+[data-theme="light"] .effect-card {
+    position: relative;
+    overflow: hidden;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+[data-theme="light"] .effect-card.active {
+    border-color: var(--lm-cyan);
+    box-shadow: 0 0 0 1px rgba(0,119,170,0.3), inset 0 0 16px rgba(0,119,170,0.06);
+    color: var(--lm-cyan);
+    font-weight: 700;
+}
+
+/* ── 필터 칩 ── */
+[data-theme="light"] .filter-chip {
+    font-family: var(--orbitron);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+[data-theme="light"] .filter-chip.active {
+    background: rgba(0,119,170,0.1);
+    border-color: var(--lm-cyan);
+    color: var(--lm-cyan);
+    font-weight: 700;
+}
+
+/* ── 버튼 베이스 reset — 브라우저 기본값 제거 ── */
+.btn-primary,
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    border: 1px solid transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+}
+
+/* ── 버튼 — Orbitron uppercase (라이트 테마) ── */
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-outline,
+[data-theme="light"] .load-more-devices-btn {
+    font-family: var(--orbitron);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+/* ── RGB 뱃지 ── */
+[data-theme="light"] .rgb-badge {
+    font-family: var(--orbitron);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    background: rgba(0,119,170,0.1);
+    color: var(--lm-cyan);
+    border: 1px solid rgba(0,119,170,0.3);
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+/* ── 모달 코너 브래킷 ── */
+[data-theme="light"] .modal-content {
+    border-color: rgba(0,119,170,0.25);
+}
+[data-theme="light"] .modal-content::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 20px; height: 20px;
+    border-top: 2px solid var(--lm-cyan);
+    border-left: 2px solid var(--lm-cyan);
+}
+[data-theme="light"] .modal-content::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 20px; height: 20px;
+    border-bottom: 2px solid rgba(0,119,170,0.35);
+    border-right: 2px solid rgba(0,119,170,0.35);
+}
+
+/* ── "미지원 기기 추가" 버튼 ── */
+[data-theme="light"] #btn-add-hid {
+    font-family: var(--orbitron);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-color: var(--lm-cyan);
+    color: var(--lm-cyan);
+}
+[data-theme="light"] #btn-add-hid:hover {
+    background: rgba(0,119,170,0.08);
+    box-shadow: 0 0 10px rgba(0,119,170,0.2);
+}
+
+/* ── 기기 수 카운트 ── */
+[data-theme="light"] #devices-count {
+    font-family: var(--orbitron);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--lm-cyan);
+    font-weight: 700;
+}
+
+/* ── 흰 글자 → 라이트 모드 재정의 ── */
+/* 슬라이더 수치 (RED/GREEN/BLUE 값) */
+[data-theme="light"] .slider-value {
+    color: var(--text-primary);
+}
+/* 하드웨어 모니터링 수치 */
+[data-theme="light"] .metric-val {
+    color: var(--text-primary);
+}
+/* 이펙트 카드 이름 (active 상태) */
+[data-theme="light"] .effect-card.active .effect-name {
+    color: var(--lm-cyan);
+}
+/* SDK 칩 텍스트 */
+[data-theme="light"] .sdk-chip {
+    color: var(--text-primary);
+}
+/* HID 스캔 테이블 행 */
+[data-theme="light"] .hid-scan-row td,
+[data-theme="light"] .hid-scan-row {
+    color: var(--text-primary);
+}
+/* 플로팅 피커 슬라이더 라벨 */
+[data-theme="light"] .floating-slider-labels span {
+    color: var(--text-secondary);
+}
+/* 저장된 디바이스 메타 */
+[data-theme="light"] .saved-device-meta {
+    color: var(--text-secondary);
+}
+/* 상태 텍스트 / 연결 버튼 */
+[data-theme="light"] .sdk-board-toggle .sdk-toggle-btn {
+    color: var(--text-primary);
+}
+/* 기기 LED 수 표시 */
+[data-theme="light"] .device-led-count {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURE A — 드래그 앤 드롭 (device cards)
+═══════════════════════════════════════════════════════════════ */
+.device-card[draggable="true"] {
+    cursor: grab;
+}
+.device-card[draggable="true"]:active {
+    cursor: grabbing;
+}
+.device-card.drag-active {
+    opacity: 0.45;
+    transform: scale(0.97);
+    box-shadow: 0 0 0 2px var(--glow-color);
+}
+.device-card.drag-over {
+    outline: 2px dashed var(--glow-color);
+    outline-offset: 3px;
+    background: rgba(0, 180, 255, 0.06);
+    transform: scale(1.01);
+    transition: transform 0.1s ease;
+}
+
+/* virtual-scroll sentinel */
+.load-more-sentinel {
+    grid-column: 1 / -1;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    opacity: 0.5;
+}
+.load-more-sentinel::after {
+    content: '· · ·';
+    letter-spacing: 0.4em;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURE B — 알림 센터
+═══════════════════════════════════════════════════════════════ */
+.notif-bell-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 0.35rem 0.7rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+    min-width: 54px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background 0.2s, border-color 0.2s;
+}
+.notif-bell-btn:hover {
+    background: var(--accent-glow);
+    border-color: var(--glow-color);
+}
+.notif-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #ff4444;
+    color: #fff;
+    border-radius: 999px;
+    min-width: 18px;
+    height: 18px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    pointer-events: none;
+}
+
+.notif-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100vh;
+    background: var(--sidebar-bg);
+    border-left: 1px solid var(--glass-border);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -4px 0 32px rgba(0,0,0,0.4);
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+.notif-panel-hidden {
+    transform: translateX(100%);
+}
+.notif-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-shrink: 0;
+}
+.notif-close-btn, .notif-clear-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.75rem;
+    transition: color 0.2s, border-color 0.2s;
+}
+.notif-close-btn:hover, .notif-clear-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--glow-color);
+}
+.notif-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+.notif-empty {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 2rem;
+}
+.notif-item {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.78rem;
+}
+.notif-item.notif-success { border-left: 3px solid #00e676; }
+.notif-item.notif-warn    { border-left: 3px solid #ffb300; }
+.notif-item.notif-error   { border-left: 3px solid #ff4444; }
+.notif-item.notif-info    { border-left: 3px solid var(--glow-color); }
+.notif-item.notif-scene   { border-left: 3px solid #aa44ff; }
+.notif-item.notif-schedule{ border-left: 3px solid #ff9900; }
+.notif-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    padding-top: 1px;
+}
+.notif-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+}
+.notif-msg {
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+.notif-time {
+    color: var(--text-secondary);
+    font-size: 0.68rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURE C — 모니터링 대시보드 위젯
+═══════════════════════════════════════════════════════════════ */
+.monitor-widgets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.85rem;
+}
+.monitor-widget {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 1rem 1.1rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+.monitor-widget:hover {
+    border-color: rgba(0, 180, 255, 0.3);
+}
+.monitor-widget.mw-warn {
+    border-color: rgba(255, 179, 0, 0.45);
+    box-shadow: 0 0 12px rgba(255,179,0,0.12);
+}
+.monitor-widget.mw-crit {
+    border-color: rgba(255, 68, 68, 0.55);
+    box-shadow: 0 0 16px rgba(255,68,68,0.18);
+    animation: mw-pulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes mw-pulse {
+    from { box-shadow: 0 0 8px rgba(255,68,68,0.15); }
+    to   { box-shadow: 0 0 22px rgba(255,68,68,0.35); }
+}
+.mw-label {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    font-weight: 500;
+}
+.mw-value {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    font-family: var(--orbitron, monospace);
+}
+.mw-unit {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-top: -0.15rem;
+}
+.mw-bar-wrap {
+    height: 4px;
+    background: var(--surface-muted);
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 0.2rem 0;
+}
+.mw-bar {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+.mw-bar-temp  { background: linear-gradient(90deg, #00b4ff, #ff6644); }
+.mw-bar-load  { background: linear-gradient(90deg, #00e676, #ffb300); }
+.mw-bar-gpu   { background: linear-gradient(90deg, #aa44ff, #ff4444); }
+.mw-bar-ram   { background: linear-gradient(90deg, #00ccff, #aa44ff); }
+.mw-bar-disk  { background: linear-gradient(90deg, #ffb300, #ff6644); }
+.mw-bar-net   { background: linear-gradient(90deg, #00e676, #00b4ff); }
+.mw-spark {
+    display: block;
+    margin-top: 0.3rem;
+    border-radius: 4px;
+    width: 100%;
+    height: 32px;
+    opacity: 0.85;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FEATURE D — 음악 반응 비트 플래시 인디케이터
+═══════════════════════════════════════════════════════════════ */
+.beat-flash-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(0, 180, 255, 0.3);
+    border: 2px solid var(--glow-color);
+    display: inline-block;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    transition: background 0.05s, box-shadow 0.05s;
+}
+.beat-flash-indicator.beat-active {
+    background: var(--glow-color);
+    box-shadow: 0 0 10px var(--glow-color), 0 0 24px var(--glow-color);
+}
+.audio-sens-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+}
+.audio-sens-row input[type=range] {
+    flex: 1;
+}
+
+/* Light mode overrides for new features */
+[data-theme="light"] .notif-panel {
+    background: var(--bg-secondary);
+    box-shadow: -4px 0 32px rgba(0,0,0,0.15);
+}
+[data-theme="light"] .monitor-widget {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+[data-theme="light"] .mw-value {
+    color: var(--text-primary);
+}
+[data-theme="light"] .notif-item {
+    background: var(--bg-secondary);
+}
+[data-theme="light"] .device-card.drag-over {
+    background: rgba(0,119,170,0.06);
+    outline-color: var(--lm-cyan, #0077aa);
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FEAT-7 CSS — 키보드 에디터 / 플레이리스트 / 프로필 / 기타
+═══════════════════════════════════════════════════════════════ */
+
+/* ── Keyboard per-key editor ── */
+#kb-layout {
+    position: relative;
+    user-select: none;
+}
+
+.kb-key {
+    position: absolute;
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.12);
+    font-size: 0.58rem;
+    font-weight: 600;
+    font-family: var(--orbitron, 'Orbitron', monospace);
+    cursor: pointer;
+    transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.kb-key:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 10px rgba(0,180,255,0.5), 0 2px 8px rgba(0,0,0,0.5);
+    z-index: 10;
+    border-color: rgba(0,180,255,0.6);
+}
+
+.kb-key:active {
+    transform: scale(0.96);
+    filter: brightness(0.85);
+}
+
+[data-theme="light"] .kb-key {
+    border-color: rgba(0,0,0,0.18);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+[data-theme="light"] .kb-key:hover {
+    box-shadow: 0 0 8px rgba(0,100,200,0.35), 0 2px 8px rgba(0,0,0,0.2);
+    border-color: rgba(0,100,200,0.5);
+}
+
+/* ── Playlist row ── */
+.pl-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.pl-row:hover {
+    border-color: rgba(0,180,255,0.25);
+    background: rgba(0,180,255,0.04);
+}
+
+[data-theme="light"] .pl-row {
+    background: var(--bg-secondary);
+}
+
+[data-theme="light"] .pl-row:hover {
+    border-color: rgba(0,100,200,0.2);
+    background: rgba(0,100,200,0.03);
+}
+
+/* ── User profile card (new) ── */
+.profile-card-new {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: default;
+}
+
+.profile-card-new:hover {
+    border-color: rgba(0,180,255,0.3);
+    transform: translateY(-2px);
+}
+
+.pcn-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.pcn-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.pcn-meta {
+    display: flex;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+}
+
+.pcn-meta span {
+    background: var(--surface-muted);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+}
+
+.pcn-actions {
+    width: 100%;
+    margin-top: 0.35rem;
+}
+
+[data-theme="light"] .profile-card-new {
+    background: var(--bg-secondary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ── Monitor widget: clickable cursor ── */
+.monitor-widget {
+    cursor: pointer;
+}
+
+.monitor-widget:hover {
+    border-color: rgba(0,180,255,0.4) !important;
+}
+
+[data-theme="light"] .monitor-widget:hover {
+    border-color: rgba(0,100,200,0.3) !important;
+}
+
+/* ── Bloom canvas ── */
+#bloom-canvas {
+    background: #060810;
+    border-radius: 8px;
+    image-rendering: pixelated;
+}
+
+[data-theme="light"] #bloom-canvas {
+    background: #e8ecf5;
+}
+
+/* ── BPM tap button flash ── */
+#btn-tap-bpm {
+    transition: background 0.1s, color 0.1s;
+}
+
+/* ── Monitor chart modal canvas ── */
+#mcm-canvas {
+    display: block;
+    background: #0d1018;
+    border-radius: 8px;
+}
+
+[data-theme="light"] #mcm-canvas {
+    background: #f4f7ff;
+}
+
+/* ── Playlist player progress bar ── */
+#pl-progress-bar-wrap {
+    width: 100%;
+    height: 4px;
+    background: var(--surface-muted);
+    border-radius: 999px;
+    margin-top: 0.4rem;
+    overflow: hidden;
+}
+
+#pl-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--glow-color);
+    border-radius: 999px;
+    transition: width 0.3s linear;
+    box-shadow: 0 0 6px var(--glow-color);
+}
+
+/* ── Keyboard container overflow ── */
+#kb-layout-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ── Scrollbar styling for keyboard ── */
+#kb-layout-container::-webkit-scrollbar { height: 4px; }
+#kb-layout-container::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 2px; }
+

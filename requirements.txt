@@ -1,0 +1,4 @@
+Flask>=3.0.0
+pywin32>=306
+requests>=2.31.0
+hidapi>=0.14.0
