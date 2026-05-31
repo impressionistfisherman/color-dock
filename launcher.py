@@ -220,17 +220,21 @@ def main():
             try:
                 s = socket.create_connection(('127.0.0.1', 3050), timeout=1)
                 s.close()
-                print('[Flask] server ready')
+                print('[Flask] server ready — navigating window')
                 _tray.title = 'ColorDock RGB ✓ 실행 중'
+                # 반드시 URL을 새로 로드한 뒤 표시 (Flask 준비 전 로드 오류 방지)
+                window.load_url('http://localhost:3050')
+                time.sleep(0.5)
                 window.show()
                 return
             except OSError:
                 pass
-        # 타임아웃 — 에러 아이콘 + 창 표시 (로그 확인용)
+        # 타임아웃
         msg = _server_error or '알 수 없는 오류'
         print(f'[Flask] health check timeout — {msg}')
         _tray.icon  = _make_icon(error=True)
         _tray.title = 'ColorDock RGB ✗ 오류'
+        window.load_url('http://localhost:3050')
         window.show()
 
     threading.Thread(target=_health, daemon=True, name='Health').start()

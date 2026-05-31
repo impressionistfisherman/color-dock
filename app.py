@@ -2446,13 +2446,15 @@ init_device_states()
 
 # --- Routing / APIs ---
 
+_PUBLIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'public')
+
 @app.route('/')
 def index():
-    return send_from_directory('public', 'index.html')
+    return send_from_directory(_PUBLIC_DIR, 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
-    return send_from_directory('public', path)
+    return send_from_directory(_PUBLIC_DIR, path)
 
 @app.route('/api/nanoleaf/connect', methods=['POST'])
 def nanoleaf_manual_connect():
