@@ -2402,29 +2402,8 @@ def init_device_states():
     }
 
     def _add_demo(d):
-        """Add a demo device entry if its brand has no active physical connection."""
-        manufacturer_key = d["manufacturer"].lower()
-        manufacturer_key = _MFR_KEY_MAP.get(manufacturer_key, manufacturer_key)
-        handler = handlers.get(manufacturer_key)
-        is_physical_active = (
-            handler and handler.connected and
-            any(pd["manufacturer"] == d["manufacturer"]
-                for pd in handler.get_devices())
-        )
-        if not is_physical_active and d["id"] not in device_states:
-            device_states[d["id"]] = {
-                "id":           d["id"],
-                "name":         d["name"],
-                "manufacturer": d["manufacturer"],
-                "type":         d["type"],
-                "led_count":    d["led_count"],
-                "leds":         [{"r": 0, "g": 180, "b": 255} for _ in range(d["led_count"])],
-                "key_layout":   d.get("key_layout", []),
-                "panels":       d.get("panels", []),
-                "rope_layout":  d.get("rope_layout", []),
-                "lightbar_layout": d.get("lightbar_layout", False),
-                "openrgb_source":  d.get("openrgb_source", False),
-            }
+        """Demo devices disabled — only real SDK-connected devices are shown."""
+        pass
 
     # 3. Hand-curated demo devices
     for d in demo_devices:

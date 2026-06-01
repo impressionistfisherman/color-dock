@@ -1,5 +1,5 @@
 #define MyAppName      "ColorDock RGB"
-#define MyAppVersion   "1.3.1"
+#define MyAppVersion   "1.3.2"
 #define MyAppPublisher "Changsik Noh"
 #define MyAppURL       "https://github.com/impressionistfisherman/color-dock"
 #define MyAppExeName   "ColorDock.exe"

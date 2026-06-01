@@ -959,17 +959,6 @@ function renderSdkChips() {
     const elBadge = document.getElementById('sdk-count-badge');
     if (elBadge) elBadge.innerText = allBrands.length;
 
-    // 필터 토글 버튼 (헤더 우측)
-    let elFilterBtn = document.getElementById('sdk-filter-btn');
-    if (!elFilterBtn) {
-        elFilterBtn = document.createElement('button');
-        elFilterBtn.id = 'sdk-filter-btn';
-        elFilterBtn.style.cssText = 'margin-left:0.5rem;padding:0.2rem 0.6rem;font-size:0.72rem;border-radius:6px;border:1px solid var(--glass-border);background:var(--glass-bg);color:var(--text-secondary);cursor:pointer;';
-        elFilterBtn.onclick = () => { _sdkShowAll = !_sdkShowAll; renderSdkChips(); };
-        const titleEl = document.querySelector('.sdk-board-title');
-        if (titleEl) titleEl.appendChild(elFilterBtn);
-    }
-
     // 새로고침 버튼
     let elRefreshBtn = document.getElementById('sdk-refresh-btn');
     if (!elRefreshBtn) {
@@ -983,8 +972,7 @@ function renderSdkChips() {
         if (titleEl) titleEl.appendChild(elRefreshBtn);
     }
 
-    const visibleBrands = _sdkShowAll ? allBrands : realBrands;
-    elFilterBtn.innerText = _sdkShowAll ? '실제기기만 보기' : `전체 보기 (${allBrands.length})`;
+    const visibleBrands = realBrands;
 
     if (visibleBrands.length === 0) {
         const empty = document.createElement('div');
@@ -1804,9 +1792,6 @@ function renderDevices() {
 
     // Filter devices based on Search Bar Query and Selected Category Chip
     const filteredDevices = devices.filter(dev => {
-        // 0. 데모 숨기기 필터
-        if (_deviceHideDemo && dev.id.endsWith('_demo')) return false;
-
         // 1. Search Query filter
         const nameMatch = dev.name.toLowerCase().includes(searchQuery);
         const mfgMatch = dev.manufacturer.toLowerCase().includes(searchQuery);
@@ -1838,30 +1823,14 @@ function renderDevices() {
 
     // 기기 수 뱃지 업데이트
     if (elDevicesCount) {
-        const realCount = devices.filter(d => !d.id.endsWith('_demo')).length;
-        const demoCount = devices.filter(d =>  d.id.endsWith('_demo')).length;
-        if (_deviceHideDemo) {
-            elDevicesCount.textContent = `${realCount}개 실제 기기 (데모 ${demoCount}개 숨김)`;
-        } else {
-            elDevicesCount.textContent = `${devices.length}개 기기 (실제 ${realCount} / 데모 ${demoCount})`;
-        }
-    }
-
-    // 데모 숨기기 버튼 상태 반영
-    const elHideBtn = document.getElementById('btn-hide-demo');
-    if (elHideBtn) {
-        elHideBtn.textContent = _deviceHideDemo ? '👁 데모 보기' : '🚫 데모 숨기기';
-        elHideBtn.style.color = _deviceHideDemo ? 'var(--glow-color)' : 'var(--text-secondary)';
-        elHideBtn.style.borderColor = _deviceHideDemo ? 'var(--glow-color)' : 'var(--glass-border)';
+        elDevicesCount.textContent = `${devices.length}개 기기 연결됨`;
     }
 
     if (filteredDevices.length === 0) {
-        const hint = _deviceHideDemo
-            ? `실제로 연결된 기기가 없습니다.<br><span style="font-size:0.78rem;opacity:0.7;">버튼을 눌러 데모 기기를 표시하거나,<br>OpenRGB 서버를 실행해 실제 하드웨어를 연결하세요.</span>`
-            : '검색 필터에 일치하는 기기가 없습니다.';
         elDevicesGrid.innerHTML = `
             <div style="text-align:center;padding:3rem;color:var(--text-secondary);background:var(--glass-bg);border-radius:20px;border:1px solid var(--glass-border);">
-                ${hint}
+                연결된 기기가 없습니다.<br>
+                <span style="font-size:0.78rem;opacity:0.7;">OpenRGB를 서버 모드로 실행하면 메인보드·RAM·GPU가 자동 감지됩니다.</span>
             </div>`;
         return;
     }
