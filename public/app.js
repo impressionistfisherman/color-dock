@@ -4512,33 +4512,20 @@ function _triggerBeatFlash() {
 
 /* ═══════════════════════════════════════════════════════════════
    FEATURE E — SSE 이벤트 → 알림 연동
+   (function 재선언 방식은 호이스팅 무한재귀 버그 유발 → 폴링 방식으로 교체)
 ═══════════════════════════════════════════════════════════════ */
-// Patch initSSE to forward SSE events to notification center
-const _origInitSSE = typeof initSSE === 'function' ? initSSE : null;
-function initSSE() {
-    if (!_origInitSSE) return;
-    _origInitSSE();
-    // Re-add notif handler after SSE source is established
-    setTimeout(() => {
-        const src = window._sseSourceRef;
-        if (src) {
-            src.addEventListener('message', function(e) {
-                try {
-                    const msg = JSON.parse(e.data);
-                    if (msg.type === 'notif') {
-                        addNotif(msg.data.type || 'info', msg.data.msg || '');
-                    }
-                } catch(err) {}
-            });
-        }
-    }, 500);
-}
-
-// Expose SSE source ref for patching
 const _patchSSERef = setInterval(() => {
-    if (typeof _sseSource !== 'undefined') {
+    if (typeof _sseSource !== 'undefined' && _sseSource) {
         window._sseSourceRef = _sseSource;
         clearInterval(_patchSSERef);
+        _sseSource.addEventListener('message', function(e) {
+            try {
+                const msg = JSON.parse(e.data);
+                if (msg.type === 'notif') {
+                    addNotif(msg.data.type || 'info', msg.data.msg || '');
+                }
+            } catch(err) {}
+        });
     }
 }, 200);
 

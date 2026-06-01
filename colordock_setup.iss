@@ -1,5 +1,5 @@
 #define MyAppName      "ColorDock RGB"
-#define MyAppVersion   "1.3.0"
+#define MyAppVersion   "1.3.1"
 #define MyAppPublisher "Changsik Noh"
 #define MyAppURL       "https://github.com/impressionistfisherman/color-dock"
 #define MyAppExeName   "ColorDock.exe"
@@ -20,6 +20,7 @@ AllowNoIcons=yes
 LicenseFile=
 OutputDir=installer_output
 OutputBaseFilename=ColorDock_Setup_v{#MyAppVersion}
+
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
